@@ -1,5 +1,7 @@
 # Monobeam – kann mehr Breite je schaden? Nicht mehr. Aber zu welchem Preis? – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-monobeam-demo.streamlit.app/)**
+
 Fünftes Stück der **Heuristische-Baumsuche-Linie** der "Konzepte"-Reihe für die Website "Sebastian Hanisch – Operations Research und Machine Learning" - die Fortsetzung von [beam-search-demo](../beam-search-demo): dort wurde gemessen, dass ein breiterer Strahl bei 2 bis 14 % der Instanzen **schlechter** ist als ein schmalerer (höhere Kosten, oder er scheitert trotz Erfolg eines schmaleren). Ursache laut Paper: **Kuckucksknoten** - Kinder aus späteren Strahlplätzen verdrängen Kandidaten, die ein schmalerer Strahl gewählt hätte. **Monobeam** (Lemons, Linares López, Holte & Ruml, ICAPS 2022) füllt die Plätze des Strahls **nacheinander** aus einem **gemeinsamen Kandidatenpool**: Platz c sieht nur Kinder der Plätze 1..c. Ein schmalerer Strahl ist damit ein Präfix eines breiteren, und die Kosten steigen mit der Breite nie.
 
 **Einordnung in die Linie:** derselbe Graph, dieselben Instanzen und dieselben 50 festen Vergleichsinstanzen wie in [beam-search-demo](../beam-search-demo) (das dortige `beam_search` ist wortgleich kopiert und reproduziert dessen Zahlen, als Test hinterlegt); Beam Search mit f-Rang (das Beam des Papers), A\* und Uniform-Cost dienen als Vergleichsgrößen. Neu ist `monobeam_search` mit Pathmax, Weitersuchen bis f ≥ Inkumbent, Inkumbent-Pruning und plätze-bewusster Duplikaterkennung.
