@@ -8,10 +8,10 @@ Fünftes Stück der **Heuristische-Baumsuche-Linie** der "Konzepte"-Reihe für d
 
 ```
 Greedy Best-First Search (Wurzel)                                                          [gebaut]
- ├─ Beam Search → {Diverse Beam Search, Monobeam}          [Beam Search gebaut, Monobeam = DIESES STÜCK]
+ ├─ Beam Search → {Diverse Beam Search, Monobeam}          [gebaut; Monobeam = DIESES STÜCK]
  ├─ A* → Iterative Deepening A* (IDA*)                                                     [gebaut]
- └─ Monte Carlo Tree Search (MCTS)                                                         [nicht gebaut]
-Beam Search + A* → Beam Stack Search (Konvergenzpunkt)                                     [nicht gebaut]
+ └─ Monte Carlo Tree Search (MCTS)                                                         [gebaut]
+Beam Search + A* → Beam Stack Search (Konvergenzpunkt)                                     [gebaut]
 ```
 
 Ergebnis in Kürze: **Die Garantie hält, ohne Ausnahme** - über 50 feste Instanzen und die Breiten 1-24 ist bei Beam bei 8 / 2 / 10 / 10 % der Instanzen (Größe 12 mit 15 % Hindernissen / 0 % / 40 % / Größe 20) irgendein breiterer Lauf schlechter, bei Monobeam bei **0 %** in allen vier Einstellungen. **Aber sie ist teuer:** bei gleicher Breite war Monobeam auf den 5 festen Sweep-Instanzen **nie besser** als Beam, es scheitert bei Breite 2-5 in 1 von 5 Läufen (Beam ab Breite 2 nie), und alle 5 Instanzen sind erst bei **Breite 24** optimal (Beam: Breite 8). Zuverlässig optimal kostet Monobeam ~**3x die Expansionen von A\***, Beam ~1.2x. Die Vorab-Hypothese "Monobeam beseitigt die Nicht-Monotonie" ist bestätigt, die stillschweigende Zusatzannahme "zu einem kleinen Preis" **widerlegt**.
@@ -63,10 +63,10 @@ Die einzelne Instanz weicht von den Sweep-Medianen ab - die Mediane oben sind di
 ## Was nicht funktioniert hat / Grenzen
 
 - **Vorab-Hypothese "Monobeam beseitigt die Nicht-Monotonie" - bestätigt; die Zusatzannahme "zu kleinem Preis" - WIDERLEGT.** Bei gleicher Breite war Monobeam nie besser als Beam, scheitert bei mittleren Breiten häufiger, braucht Breite 24 statt 8 für 5 von 5 optimal und ~3x A\* statt ~1.2x Expansionen. Das Paper nennt diesen Nachteil selbst ("Monotonie begrenzt den Pool", Platz c sieht nur Kinder der Plätze 1..c) - hier gemessen: auf dem Raster ist er groß. Warum genau er auf dem Raster so groß ausfällt, wird nicht isoliert untersucht.
-- **Monotonie ist nicht Vollständigkeit.** Monobeam scheitert bei schmaler Breite (Standardfall, Breite 4: 1 von 5 Läufen); die Garantie heißt nur "nicht steigende Kosten in der Breite, Scheitern nach Erfolg kommt nicht vor". Beam Search + Backtracking ist **Beam Stack Search** (Zhou & Hansen 2005) - nicht gebaut.
+- **Monotonie ist nicht Vollständigkeit.** Monobeam scheitert bei schmaler Breite (Standardfall, Breite 4: 1 von 5 Läufen); die Garantie heißt nur "nicht steigende Kosten in der Breite, Scheitern nach Erfolg kommt nicht vor". Beam Search + Backtracking ist **Beam Stack Search** (Zhou & Hansen 2005) - eigene Demo ([beam-stack-demo](../beam-stack-demo)).
 - **Jeder Baustein nötig?** Duplikatregel: ja (gemessen). Stoppregel: auf dem Raster nicht (0 %), auf der handgebauten Stopp-Falle ja. Pathmax feuert nur bei nicht konsistenter Heuristik (handgebaute Instanzen), auf dem Raster nie; ohne Pathmax bleiben die Kosten dort identisch (Test).
 - **Unbegrenzte Breite:** Monobeam ist dort optimal (Raster und Umweg-Falle), Beam liefert den Pfad mit den wenigsten Kanten.
-- **Nicht gebaut:** der zweite Beitrag des Papers (Distanz-bis-Ziel-Schätzer für nicht einheitliche Kosten), Bead/Monobead, "Trading Monotonicity for Cost", Diverse Beam Search, Beam Stack Search.
+- **Nicht gebaut:** der zweite Beitrag des Papers (Distanz-bis-Ziel-Schätzer für nicht einheitliche Kosten), Bead/Monobead, "Trading Monotonicity for Cost", Stochastic Beam Search.
 - **Synthetische Instanzen:** ein Raster mit Jitter, Vierer-Nachbarschaft, keine Zeitfenster, keine gerichteten Kanten, dazu drei handgebaute Graphen. Andere Graphstrukturen wurden nicht gemessen.
 
 ## Praxis im Portfolio
@@ -120,6 +120,4 @@ pytest tests/ -v
 
 ---
 
-Teil des [Operations-Research-Demo-Portfolios](https://sebastianhanisch.net/demos.html) von
-[Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning.
-Interesse an einer maßgeschneiderten Lösung? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Heuristische Baumsuche: Greedy bis MCTS](https://sebastianhanisch.net/konzepte-heuristische-baumsuche.html).

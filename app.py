@@ -75,8 +75,8 @@ breiteren, und die Kosten steigen mit der Breite **nie**. Hält die Garantie - u
 )
 st.caption(
     "Setzt auf [beam-search-demo](https://github.com/sebastian-hanisch/beam-search-demo) auf (derselbe Graph, dieselben "
-    "Instanzen; Beam Search mit f-Rang als Vergleich). Noch nicht gebaute Geschwister: Diverse Beam Search, Monte Carlo "
-    "Tree Search (MCTS), Beam Search + A\\* → Beam Stack Search."
+    "Instanzen; Beam Search mit f-Rang als Vergleich). Geschwister in der Linie: [Diverse Beam Search](https://github.com/sebastian-hanisch/diverse-beam-demo), "
+    "[Beam Stack Search](https://github.com/sebastian-hanisch/beam-stack-demo), [Monte Carlo Tree Search (MCTS)](https://github.com/sebastian-hanisch/mcts-demo)."
 )
 
 with st.expander("So funktioniert Monobeam", expanded=True):
@@ -276,9 +276,9 @@ st.markdown(
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
 | **Mehr Breite kann schaden** (Beam) | Bei Beam ja: bei 8 % (Größe 12, 15 % Hindernisse), 2 % (0 %), 10 % (40 %) und 10 % (Größe 20) der Instanzen ist irgendein breiterer Strahl schlechter. Bei Monobeam bei **0 %** in allen vier Einstellungen - die Garantie hält. | **Monobeam** (diese Demo) |
-| **Die Garantie ist umsonst** | Nein. Bei gleicher Breite war Monobeam auf den 5 festen Instanzen nie besser als Beam; es scheitert bei Breite 2-5 in 1 von 5 Läufen (Beam ab Breite 2 nie), und alle 5 Instanzen sind erst bei Breite 24 optimal (Beam: Breite 8). Zuverlässig optimal kostet Monobeam ~3x die Expansionen von A\\*, Beam ~1.2x. Extrembeispiel Seed 200042: Beam findet ab Breite 4 den optimalen Pfad, Monobeam bis Breite 11 gar keinen. Das Paper nennt den Nachteil selbst: Platz c sieht nur Kinder der Plätze 1..c. | Diverse Beam Search / Stochastic Beam Search (andere Ansätze, hier nicht gebaut); im Paper: Monobeam mit Distanz-bis-Ziel-Schätzer (hier nicht gebaut) |
+| **Die Garantie ist umsonst** | Nein. Bei gleicher Breite war Monobeam auf den 5 festen Instanzen nie besser als Beam; es scheitert bei Breite 2-5 in 1 von 5 Läufen (Beam ab Breite 2 nie), und alle 5 Instanzen sind erst bei Breite 24 optimal (Beam: Breite 8). Zuverlässig optimal kostet Monobeam ~3x die Expansionen von A\\*, Beam ~1.2x. Extrembeispiel Seed 200042: Beam findet ab Breite 4 den optimalen Pfad, Monobeam bis Breite 11 gar keinen. Das Paper nennt den Nachteil selbst: Platz c sieht nur Kinder der Plätze 1..c. | Diverse Beam Search (eigene Demo) / Stochastic Beam Search (andere Ansätze; Stochastic hier nicht gebaut); im Paper: Monobeam mit Distanz-bis-Ziel-Schätzer (hier nicht gebaut) |
 | **Jeder Baustein ist nötig** | Duplikatregel: ja - mit naiven Full-Beam-Duplikaten verletzen 6 % (Größe 12, 15 %), 6 % (40 %) und 10 % (Größe 20) der Instanzen die Monotonie, immer als Scheitern eines breiteren Laufs. Stoppregel: auf dem Raster nicht (0 %), auf der handgebauten Stopp-Falle ja. Pathmax feuert nur bei nicht konsistenter Heuristik (handgebaute Instanzen), auf dem Raster nie. | - |
-| **Monotonie ist Vollständigkeit** | Nein. Monobeam scheitert bei schmaler Breite (Standardfall, Breite 4: 1 von 5 Läufen) - die Garantie heißt nur: nicht steigende Kosten in der Breite, Scheitern nach Erfolg kommt nicht vor. | **Beam Stack Search** (Zhou & Hansen 2005, hier nicht gebaut) |
+| **Monotonie ist Vollständigkeit** | Nein. Monobeam scheitert bei schmaler Breite (Standardfall, Breite 4: 1 von 5 Läufen) - die Garantie heißt nur: nicht steigende Kosten in der Breite, Scheitern nach Erfolg kommt nicht vor. | **Beam Stack Search** (Zhou & Hansen 2005, eigene Demo) |
 | **Unbegrenzte Breite = optimal** | Für Monobeam ja (120 von 120 Rasterinstanzen bei Breite 2000; Umweg-Falle: Beam 10, Monobeam 3). Beam liefert dort den Pfad mit den wenigsten Kanten. | - |
 | **Synthetische Instanzen** | Ein Raster mit Jitter, Vierer-Nachbarschaft, keine Zeitfenster, keine gerichteten Kanten, dazu drei handgebaute Graphen. Andere Graphstrukturen wurden nicht gemessen. | Echte Straßennetze (hier nicht gebaut) |
 """
@@ -316,6 +316,6 @@ Implementiert in `mono_algorithm.py` (Suchkerne und `beam_search` aus der Beam-S
 st.markdown("---")
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-    "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-    "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)"
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zur Reihe: [Heuristische Baumsuche: Greedy bis MCTS](https://sebastianhanisch.net/konzepte-heuristische-baumsuche.html)."
 )
