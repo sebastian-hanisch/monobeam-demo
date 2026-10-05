@@ -49,6 +49,8 @@ MONO_WIDTHS = tuple(range(1, 25))
 #   (das Paper begründet sie allgemein; die handgebaute Stopp-Falle zeigt, dass sie dort nötig ist).
 # UNBEGRENZTE BREITE: Monobeam war bei Breite 2000 (weit über jeder Kandidatenzahl einer Ebene) auf allen 120 Rasterinstanzen (Seeds 300000-300039, 0/15/40 %
 #   Hindernisse) optimal; auf der Umweg-Falle (Direktkante 10 gegen Umweg 3) liefert Beam bei JEDER Breite 10, Monobeam 3.
+#   Voraussetzung konsistente Heuristik: bei zulässiger, nicht konsistenter Heuristik verfehlt Monobeam bei Breite 2000 auf 11 von 4000 zufälligen kleinen
+#   Graphen das Optimum (Pathmax gleicht f an, die f-basierte Duplikatregel verwirft den Weg mit kleinerem g; ohne Pathmax 0 von 4000).
 # HANDGEBAUTE INSTANZEN (explizite zulässige, nicht konsistente Heuristik; per Skriptsuche konstruiert und festgeschrieben):
 #   Kuckuck-Falle: Beam Breite 1/2/3 = 7/8/7 (Breite 2 schlechter), Monobeam 7/7/7. Stopp-Falle: mit der Stoppregel "nach
 #   der ersten Lösungs-Schicht" Breite 1/2/3 = 6/9/8, Monobeam mit Paper-Regel 6/6/6. Pathmax feuert dort (Kuckuck-Falle 3x
